@@ -5,7 +5,7 @@ var bitgo = {
   provider: 'bitgo',
   token: '283d1ce6c346fb82d2bdaf343b0bef77c54817ce675b296ff3d0ebb42daaa639',
   walletId: '31uEbMgunupShBVTewXjtqbBv5MndwfXhb',
-  passphrade: 'correct horse battery stapler'
+  passphrase: 'correct horse battery stapler'
 };
 
 var compliance =  {
