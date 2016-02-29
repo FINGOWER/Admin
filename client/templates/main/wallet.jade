@@ -10,30 +10,27 @@
     .mid.scroller
       .description
         .description_title Set your wallet settings
-        .description_body
-          .p Our newest wallet options are configured via your serve console. For instructions, please see our
-            a(href='http://support.lamassu.is/support/solutions/folders/1000211906', style='text-decoration: none') support section
-            .
-//
-      .settings        
+        .description_body Here you can change your current wallet settings. Please fill out all form fields.
+      .settings
         ul
           li
             .label Provider
             .select_wrap
               select#wallet_provider
-                option(value="blockchain") Blockchain.info
+                option(value="bitgo") BitGo
           li
-            .label GUID
+            .label Token
             .input_wrap
-              input#wallet_guid
+              input#wallet_token
           li
-            .label Password
+            .label Wallet ID
             .input_wrap
-              input(type="password")#wallet_password
+              input#wallet_wallet_id
           li
-            .label From Address
+            .label Passphrase
             .input_wrap
-              input#wallet_from_address
+              input(type="password")#wallet_wallet_passphrase
 
     .bot
+
 
