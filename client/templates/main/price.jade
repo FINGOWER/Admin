@@ -10,7 +10,10 @@
     .mid.scroller
       .description
         .description_title Set display price
-        .description_body Pick a source then you can add your commission on top. 
+        .description_body
+          .p Pick a source then you can add your commission on top.
+          .p &#8199;
+          .p Not every ticker may support your currency. If in doubt, choose BitPay.
       .settings
         ul
           li
@@ -21,15 +24,17 @@
                 option(value="coindesk") CoinDesk
                 option(value="bitcoinaverage") BitcoinAverage
                 option(value="bitstamp") BitStamp
+                option(value="coinapult") Coinapult
         .current_price 
           | The current price is 
           span.value ---.--
           | .
         ul
-          li
-            .label Custom Source
-            .input_wrap
-              input#price_custom_url
+          //
+            li
+              .label Custom Source
+              .input_wrap
+                input#price_custom_url
           li
             .label Commission
             .input_wrap
@@ -40,5 +45,4 @@
 
         | Display Price: 
         span.value ---.--
-
 

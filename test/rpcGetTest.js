@@ -18,10 +18,10 @@ describe('lamassu-admin/rpc/get', function() {
     ss.rpc('get.wallet', function(params) {
       assert(!params[0]);
 
-      assert.equal(params[1].provider, 'blockchain');
-      assert(params[1].guid);
-      assert(params[1].password);
-      assert(params[1].fromAddress);
+      assert.equal(params[1].provider, 'bitgo');
+      assert(params[1].token);
+      assert(params[1].walletId);
+      assert(params[1].walletPassphrase);
 
       done();
     });

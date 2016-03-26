@@ -22,9 +22,9 @@ module.exports = Backbone.View.extend({
     //define settings object
     var wallet_settings = {
       provider: self.$el.find('#wallet_provider').val(),
-      guid: self.$el.find('#wallet_guid').val(),
-      password: self.$el.find('#wallet_password').val(),
-      fromAddress: self.$el.find('#wallet_from_address').val()
+      token: self.$el.find('#wallet_token').val(),
+      walletId: self.$el.find('#wallet_wallet_id').val(),
+      walletPassphrase: self.$el.find('#wallet_wallet_passphrase').val()
     }
 
     self.user.set('wallet',  wallet_settings)
@@ -44,18 +44,18 @@ module.exports = Backbone.View.extend({
     var self = this
 
     var wallet_settings = {
-      provider: 'blockchain',
-      guid: 'none',
-      password: 'none',
-      fromAddress: 'none'
+      provider: 'bitgo',
+      token: 'none',
+      walletId: 'none',
+      walletPassphrase: 'none'
     }
 
     var wallet = self.user.get('wallet') || wallet_settings
 
     self.$el.find('#wallet_provider').val(wallet.provider)
-    self.$el.find('#wallet_guid').val(wallet.guid)
-    self.$el.find('#wallet_password').val(wallet.password)
-    self.$el.find('#wallet_from_address').val(wallet.fromAddress)
+    self.$el.find('#wallet_token').val(wallet.token)
+    self.$el.find('#wallet_wallet_id').val(wallet.walletId)
+    self.$el.find('#wallet_wallet_passphrase').val(wallet.walletPassphrase)
 
   },
 

@@ -1,11 +1,11 @@
 var assert = require('assert');
 var ss = require('socketstream').start();
 
-var blockchain = {
-  provider: 'blockchain',
-  guid: '85d9dc37-85ce-4d84-a0cc-48d8627b74bc',
-  password: 'horse battery stapler',
-  fromAddress: '31uEbMgunupShBVTewXjtqbBv5MndwfXhb'
+var bitgo = {
+  provider: 'bitgo',
+  token: '283d1ce6c346fb82d2bdaf343b0bef77c54817ce675b296ff3d0ebb42daaa639',
+  walletId: '31uEbMgunupShBVTewXjtqbBv5MndwfXhb',
+  passphrase: 'correct horse battery stapler'
 };
 
 var compliance =  {
@@ -45,30 +45,30 @@ describe('lamassu-admin/rpc/set', function() {
   });
 
   it('should set correct wallet settings', function(done) {
-    ss.rpc('set.wallet', blockchain, function(setResult) {
+    ss.rpc('set.wallet', bitgo, function(setResult) {
       assert(!setResult[0], 'setting commission should succeed');
 
       ss.rpc('get.wallet', function(getResult) {
         assert(!getResult[0], 'getting wallet after setting should succeed');
 
-        assert.equal(getResult[1].guid, blockchain.guid, 'guid should be set correctly');
-        assert.equal(getResult[1].password, blockchain.password, 'password should be set correctly');
-        assert.equal(getResult[1].fromAddress, blockchain.fromAddress, 'fromAddress should be set correctly');
+        assert.equal(getResult[1].token, bitgo.token, 'token should be set correctly');
+        assert.equal(getResult[1].walletId, bitgo.walletId, 'walletId should be set correctly');
+        assert.equal(getResult[1].walletPassphrase, bitgo.walletPassphrase, 'walletPassphrase should be set correctly');
         done();
       });
     });
   });
 
   it('should set correct exchange settings', function(done) {
-    ss.rpc('set.exchange', blockchain, function(setResult) {
+    ss.rpc('set.exchange', bitgo, function(setResult) {
       assert(!setResult[0], 'setting commission should succeed');
 
       ss.rpc('get.exchange', function(getResult) {
         assert(!getResult[0], 'getting exchange after setting should succeed');
 
-        assert.equal(getResult[1].guid, blockchain.guid, 'guid should be set correctly');
-        assert.equal(getResult[1].password, blockchain.password, 'password should be set correctly');
-        assert.equal(getResult[1].fromAddress, blockchain.fromAddress, 'fromAddress should be set correctly');
+        assert.equal(getResult[1].token, bitgo.token, 'token should be set correctly');
+        assert.equal(getResult[1].walletId, bitgo.walletId, 'walletId should be set correctly');
+        assert.equal(getResult[1].walletPassphrase, bitgo.walletPassphrase, 'walletPassphrase should be set correctly');
         done();
       });
     });

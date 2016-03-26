@@ -4,7 +4,7 @@ var PriceData = Backbone.Model.extend({ //this model keeps a current record of p
 
     var self = this
 
-    self.sources = ['bitstamp', 'bitpay', 'coindesk', 'bitcoinaverage']
+    self.sources = ['bitstamp', 'bitpay', 'coindesk', 'bitcoinaverage', 'coinapult']
 
     self.sources.forEach(function(source){
       var price_update = 'latest_price:' + source;
