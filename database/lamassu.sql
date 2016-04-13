@@ -27,12 +27,12 @@ COPY user_config (id, type, data) FROM stdin;
       "current": {\
         "ticker": "bitpay",\
         "trade": "bitstamp",\
-        "transfer": "blockchain"\
+        "transfer": "bitgo"\
       },\
       "settings": {\
         "bitpay": {},\
         "bitstamp": {"currency": "USD", "key": "test", "secret": "test", "clientId": "test" },\
-        "blockchain" : {}\
+        "bitgo" : {}\
       }\
     }\
   }\
@@ -84,7 +84,7 @@ COPY user_config (id, type, data) FROM stdin;
     },\
     "plugins": {\
       "settings": {\
-        "blockchain": {\
+        "bitgo": {\
           "retryInterval": 10000,\
           "retryTimeout": 60000\
         }\
