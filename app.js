@@ -2,15 +2,18 @@
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var ss = require('socketstream');
 
 var argv = require('yargs').argv;
 
 var secureHeaders = require('./server/secure-headers.js');
 
 var server;
-
 var adminConfig
+
+// Needed because socketstream relies on cwd
+process.chdir(__dirname)
+
+var ss = require('socketstream');
 
 try {
   adminConfig = JSON.parse(fs.readFileSync('/etc/lamassu-admin.json'))
