@@ -10,6 +10,18 @@ var secureHeaders = require('./server/secure-headers.js');
 
 var server;
 
+var adminConfig
+
+try {
+  adminConfig = JSON.parse(fs.readFileSync('/etc/lamassu-admin.json'))
+} catch (err) {
+  if (err.code !== 'ENOENT') throw(err)
+  adminConfig = {}
+}
+
+var certKeyPath = adminConfig.certKeyPath || argv.key
+var certPath = adminConfig.certPath || argv.cert
+
 //define assets for admin app
 ss.client.define('main', {
   view: 'app.jade',
@@ -37,13 +49,13 @@ if (argv.http) {
   server = http.Server(ss.http.middleware);
 }
 else {
-  if (argv.cert) {
-    var fingerprint = require('./server/fingerprint');
+  if (certPath) {
+    require('./server/fingerprint');
   }
 
   var options = {
-    key: fs.readFileSync(argv.key),
-    cert: fs.readFileSync(argv.cert),
+    key: fs.readFileSync(certKeyPath),
+    cert: fs.readFileSync(certPath),
     secureProtocol: 'TLSv1_method',
     ciphers: 'AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH',
     honorCipherOrder: true
