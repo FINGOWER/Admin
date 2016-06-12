@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 var fs = require('fs');
+var path = require('path');
+var os = require('os');
 var http = require('http');
 var https = require('https');
 
@@ -17,13 +19,24 @@ var ss = require('socketstream');
 
 try {
   adminConfig = JSON.parse(fs.readFileSync('/etc/lamassu-admin.json'))
-} catch (err) {
-  if (err.code !== 'ENOENT') throw(err)
-  adminConfig = {}
+} catch (_) {
+  try {
+    var homePath = path.resolve(os.homedir(), '.lamassu', 'lamassu-admin.json')
+    adminConfig = JSON.parse(fs.readFileSync(homePath))
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw (err)
+    adminConfig = {}
+  }
 }
 
 var certKeyPath = adminConfig.certKeyPath || argv.key
 var certPath = adminConfig.certPath || argv.cert
+var httpOnly = adminConfig.httpOnly || argv.http
+
+if (!httpOnly && (!certKeyPath || !certPath)) {
+  console.log('Missing configuration -- exiting.')
+  process.exit(1)
+}
 
 //define assets for admin app
 ss.client.define('main', {
@@ -48,7 +61,7 @@ ss.client.templateEngine.use(require('ss-hogan'));
 // if (ss.env === 'production') ss.client.packAssets();
 
 // start server
-if (argv.http) {
+if (httpOnly) {
   server = http.Server(ss.http.middleware);
 }
 else {
@@ -69,7 +82,7 @@ else {
 
 server.listen(process.env.PORT || 8081);
 
-ss.http.middleware.append(secureHeaders({ https: !argv.http }));
+ss.http.middleware.append(secureHeaders({ https: !httpOnly }));
 
 // start socketstream
 ss.start(server);
