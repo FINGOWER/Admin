@@ -20,9 +20,9 @@ try {
   }
 }
 
-var psqlUrl = options.postgres
+var psqlUrl = options.postgresql
 if (!psqlUrl) {
-  console.log('Missing postgres entry in configuration file: %s', configPath)
+  console.log('Missing postgresql entry in configuration file: %s', configPath)
   process.exit(2)
 }
 
