@@ -1,10 +1,18 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
+var path = require('path');
+var os = require('os')
 
 var cert = '/root/lamassu-server.crt';
 
 var fingerprint = null;
 
+try {
+  var path1 = path.resolve(os.homedir(), '.lamassu', 'lamassu.json')
+  cert = JSON.parse(fs.readFileSync(path1)).certPath
+} catch (_) {
+  cert = '/root/lamassu-server.crt'
+}
 
 function generateFingerprint(cert) {
   exec('openssl x509 -fingerprint -sha1 -noout -in ' + cert + ' | sed \'s/SHA1 Fingerprint=//\'', function (err, stdout) {
