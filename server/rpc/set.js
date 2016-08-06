@@ -13,18 +13,18 @@ exports.actions = function (req, res, ss) {
       config.load(function (err, results) {
         if (err) return res(err);
         results.exchanges.settings.commission = data.commission;
-        results.exchanges.plugins.current.ticker = data.provider;
+        results.exchanges.plugins.current.BTC.ticker = data.provider;
         config.saveExchangesConfig(results, res);
       });
     },
-    
+
     wallet: function(data) {
       config.load(function(err, results) {
         if (err) return res(err);
 
         var provider = data.provider;
         var settings = results.exchanges.plugins.settings[provider];
-        results.exchanges.plugins.current.wallet = provider;
+        results.exchanges.plugins.current.BTC.wallet = provider;
         Object.keys(data).forEach(function(key) {
           if (key !== 'provider')
             settings[key] = data[key];
@@ -39,7 +39,7 @@ exports.actions = function (req, res, ss) {
         if (err) return res(err);
 
         var provider = data.enabled ? data.provider : null;
-        results.exchanges.plugins.current.trade = provider;
+        results.exchanges.plugins.current.BTC.trade = provider;
 
         if (provider) {
           var settings = results.exchanges.plugins.settings[provider] ||
@@ -47,7 +47,7 @@ exports.actions = function (req, res, ss) {
           Object.keys(data).forEach(function(key) {
             if (key !== 'provider' && key !== 'enabled')
               settings[key] = data[key];
-          });          
+          });
         }
 
         config.saveExchangesConfig(results, res);

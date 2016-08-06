@@ -7,7 +7,7 @@ var price_settings = function (callback) {
   config.load(function (err, config) {
     if (err) return callback(err)
     callback(null, {
-      provider: config.exchanges.plugins.current.ticker,
+      provider: config.exchanges.plugins.current.BTC.ticker,
       commission: config.exchanges.settings.commission,
       custom_url: null
     })
@@ -18,7 +18,7 @@ var wallet_settings = function (callback) {
   config.load(function (err, config) {
     if (err) return callback(err)
 
-    var provider = config.exchanges.plugins.current.transfer
+    var provider = config.exchanges.plugins.current.BTC.transfer
     var settings = config.exchanges.plugins.settings[provider]
     settings.provider = provider
     callback(null, settings)
@@ -29,7 +29,7 @@ var exchange_settings = function (callback) {
   config.load(function (err, config) {
     if (err) return callback(err)
 
-    var provider = config.exchanges.plugins.current.trade
+    var provider = config.exchanges.plugins.current.BTC.trade
     if (!provider) {
       return callback(null, null)
     }
