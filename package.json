@@ -12,7 +12,7 @@
     "ss-stylus": "0.1.x",
     "ss-hogan": "0.1.x",
     "request": "^2.34.0",
-    "lamassu-config": "~0.4.0",
+    "lamassu-config": "lamassu/lamassu-config#alpha",
     "async": "~0.2.10",
     "lodash": "~2.4.1",
     "yargs": "^1.2.1",
