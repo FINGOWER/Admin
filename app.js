@@ -65,7 +65,7 @@ if (httpOnly) {
   server = http.Server(ss.http.middleware)
 } else {
   if (certPath) {
-    require('./server/fingerprint')
+    require('./server/device-id')
   }
 
   var options = {

@@ -1,5 +1,5 @@
 var config = require('../config.js')
-var fingerprint = require('../fingerprint.js')
+var deviceId = require('../device-id.js')
 var ip = require('ip')
 
 exports.actions = function (req, res, ss) {
@@ -16,7 +16,7 @@ exports.actions = function (req, res, ss) {
       res(null, {
         host: ip.address('public'),
         port: 3000,
-        fingerprint: fingerprint()
+        deviceId: deviceId()
       })
     }
   }
