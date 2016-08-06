@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-var fs = require('fs');
-var path = require('path');
-var os = require('os');
-var http = require('http');
-var https = require('https');
+var fs = require('fs')
+var path = require('path')
+var os = require('os')
+var http = require('http')
+var https = require('https')
 
-var argv = require('yargs').argv;
+var argv = require('yargs').argv
 
-var secureHeaders = require('./server/secure-headers.js');
+var secureHeaders = require('./server/secure-headers.js')
 
-var server;
+var server
 var adminConfig
 
 // Needed because socketstream relies on cwd
 process.chdir(__dirname)
 
-var ss = require('socketstream');
+var ss = require('socketstream')
 
 try {
   adminConfig = JSON.parse(fs.readFileSync('/etc/lamassu-admin.json'))
@@ -38,35 +38,34 @@ if (!httpOnly && (!certKeyPath || !certPath)) {
   process.exit(1)
 }
 
-//define assets for admin app
+// define assets for admin app
 ss.client.define('main', {
   view: 'app.jade',
-  css:  ['libs', 'app.styl'],
+  css: ['libs', 'app.styl'],
   code: ['libs', 'app'],
   tmpl: '*'
-});
+})
 
 // serve main client on the root url
-ss.http.route('/', function(req, res) {
-  res.serveClient('main');
-});
+ss.http.route('/', function (req, res) {
+  res.serveClient('main')
+})
 
 // code formatters
-ss.client.formatters.add(require('ss-jade'));
-ss.client.formatters.add(require('ss-stylus'));
+ss.client.formatters.add(require('ss-jade'))
+ss.client.formatters.add(require('ss-stylus'))
 
-ss.client.templateEngine.use(require('ss-hogan'));
+ss.client.templateEngine.use(require('ss-hogan'))
 
 // minimize and pack assets if you type: SS_ENV=production node app.js
-// if (ss.env === 'production') ss.client.packAssets();
+// if (ss.env === 'production') ss.client.packAssets()
 
 // start server
 if (httpOnly) {
-  server = http.Server(ss.http.middleware);
-}
-else {
+  server = http.Server(ss.http.middleware)
+} else {
   if (certPath) {
-    require('./server/fingerprint');
+    require('./server/fingerprint')
   }
 
   var options = {
@@ -75,16 +74,16 @@ else {
     secureProtocol: 'TLSv1_method',
     ciphers: 'AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH',
     honorCipherOrder: true
-  };
+  }
 
-  server = https.createServer(options, ss.http.middleware);
+  server = https.createServer(options, ss.http.middleware)
 }
 
-server.listen(process.env.PORT || 8081);
+server.listen(process.env.PORT || 8081)
 
-ss.http.middleware.append(secureHeaders({ https: !httpOnly }));
+ss.http.middleware.append(secureHeaders({ https: !httpOnly }))
 
 // start socketstream
-ss.start(server);
+ss.start(server)
 
-var price_feed = require('./server/price/feed');
+require('./server/price/feed')
