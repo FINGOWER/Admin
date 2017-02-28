@@ -4,6 +4,7 @@ var ip = require('ip');
 
 exports.actions = function(req, res, ss) {
   req.use('session');
+  req.use('user.authenticated');
 
   return {
     create_pairing_token: function(data) {
