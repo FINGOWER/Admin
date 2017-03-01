@@ -1,7 +1,7 @@
 {
   "name": "lamassu-admin",
   "description": "Lamassu admin server. First part of Lamassu stack you need to install.",
-  "version": "0.5.11",
+  "version": "0.5.12",
   "author": "Lamassu (https://lamassu.is)",
   "engines": {
     "node": "0.10.x"
