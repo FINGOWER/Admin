@@ -15,7 +15,7 @@ exports.actions = function(req, res, ss) {
     authenticate: function(username, password){
       if (limiter >= 2) {
         var err = new Error('Rate limiting login');
-        err.name = RateLimitError;
+        err.name = 'RateLimitError';
         return res(err);
       }
 
