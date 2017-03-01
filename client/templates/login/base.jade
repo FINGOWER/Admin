@@ -9,6 +9,8 @@
         | Logging you in...
       #authentication-failed.message(style="display: none")
         | Authentication failed
+      #authentication-paused.message(style="display: none")
+        | Too many login attempts. Wait 1 minute or contact Lamassu support.
       .email
         .input_wrap
           input(type="text", value="username", autocorrect="off", autocapitalize="off")#login_username

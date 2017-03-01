@@ -11,6 +11,7 @@ module.exports = Backbone.View.extend({
     var $logIn = self.$el.find('#log-in');
     var $loggingIn = self.$el.find('#logging-in');
     var $authenticationFailed = self.$el.find('#authentication-failed');
+    var $authenticationPaused = self.$el.find('#authentication-paused');
 
     self.$el.find('input').each(function(index, element){
 
@@ -28,9 +29,16 @@ module.exports = Backbone.View.extend({
 
         $logIn.hide();
         $authenticationFailed.hide();
+        $authenticationPaused.hide();
         $loggingIn.show();
 
         self.user.login(username, password, function (err, authenticated) {
+          if (err && err.name === 'RateLimitError') {
+            $loggingIn.hide();
+            $authenticationPaused.show();
+            return;
+          }
+
           if (!authenticated) {
             $loggingIn.hide();
             $authenticationFailed.show();
@@ -40,15 +48,15 @@ module.exports = Backbone.View.extend({
 
       $e.focus(function(){
         if ($e.val() === value ){
-          if (value === 'password') 
-            $e.prop('type', 'password') 
+          if (value === 'password')
+            $e.prop('type', 'password')
           $e.val('')
         }
       })
 
       $e.blur(function(){
         if ($e.val() === ''){
-          if (value === 'password') 
+          if (value === 'password')
             $e.prop('type', 'text')
           $e.val(value)
         }

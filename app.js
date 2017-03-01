@@ -3,12 +3,16 @@ var fs = require('fs');
 var http = require('http');
 var https = require('https');
 var ss = require('socketstream');
+var crypto = require('crypto');
 
 var argv = require('yargs').argv;
 
 var secureHeaders = require('./server/secure-headers.js');
 
 var server;
+
+// Set signing secret
+ss.session.options.secret = crypto.randomBytes(32).toString('hex');
 
 //define assets for admin app
 ss.client.define('main', {
